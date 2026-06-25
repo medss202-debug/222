@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة الإدارة - المنتجات والطلبات</title>
+    <link rel="stylesheet" href="style.css?v=2.0">
+</head>
+<body>
+
+    <header class="admin-header">
+        <h1>لوحة تحكم المتجر</h1>
+    </header>
+
+    <main id="view-products" class="tab-content active">
+        <div class="action-bar">
+            <h2>قائمة المنتجات</h2>
+            <button id="btn-show-add-product" class="btn-primary"><span>+</span> إضافة منتج</button>
+        </div>
+        <div class="products-container" id="admin-products-list">
+            <p style="text-align:center; padding:20px;">جاري تحميل المنتجات...</p>
+        </div>
+    </main>
+
+    <main id="view-orders" class="tab-content">
+        <div class="action-bar">
+            <h2>الطلبات الواردة</h2>
+        </div>
+        <div class="orders-container" id="admin-orders-list">
+            <p style="text-align:center; padding:20px;">جاري تحميل الطلبات...</p>
+        </div>
+    </main>
+
+    <main id="view-settings" class="tab-content">
+        <div class="action-bar">
+            <h2>إعدادات المتجر</h2>
+        </div>
+        <div class="settings-container" style="background:#fff; padding:20px; border-radius:8px; margin:20px; box-shadow:0 2px 5px rgba(0,0,0,0.05);">
+            <div class="form-group">
+                <label>سعر التوصيل (دينار عراقي):</label>
+                <input type="number" id="input-delivery-price" placeholder="مثال: 5000" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 1rem;">
+            </div>
+            <button id="btn-save-settings" class="btn-primary" style="margin-top: 15px;">حفظ الإعدادات</button>
+        </div>
+    </main>
+
+    <nav class="bottom-tabs">
+        <button id="tab-products" class="tab-btn active">المنتجات 📦</button>
+        <button id="tab-orders" class="tab-btn">الطلبات 📋</button>
+        <button id="tab-settings" class="tab-btn">الإعدادات ⚙️</button>
+    </nav>
+
+    <!-- إضافة منتج -->
+    <div id="modal-add-product" class="modal-overlay">
+        <div class="modal-card">
+            <h3>إضافة منتج جديد</h3>
+            <div class="form-group">
+                <label>رفع صورة:</label>
+                <input type="file" id="input-product-image" accept="image/*" required>
+            </div>
+            <div class="form-group">
+                <label>اسم المنتج:</label>
+                <input type="text" id="input-product-name" placeholder="مثال: عطر ديور..." required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;">
+            </div>
+            <div class="form-group">
+                <label>السعر (دينار عراقي):</label>
+                <input type="number" id="input-product-price" placeholder="مثال: 25000" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;">
+            </div>
+            <div class="form-group">
+                <label>وصف المنتج:</label>
+                <textarea id="input-product-desc" rows="3" placeholder="اكتب وصف المنتج هنا..." required></textarea>
+            </div>
+            <div class="modal-actions">
+                <button id="btn-save-product" class="btn-primary">حفظ</button>
+                <button id="btn-cancel-product" class="btn-secondary">إلغاء</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- تعديل منتج -->
+    <div id="modal-edit-product" class="modal-overlay">
+        <div class="modal-card">
+            <h3>تعديل المنتج</h3>
+            <input type="hidden" id="edit-product-id">
+            <div class="form-group">
+                <label>رفع صورة جديدة (اتركه فارغاً لعدم التغيير):</label>
+                <input type="file" id="edit-product-image" accept="image/*">
+            </div>
+            <div class="form-group">
+                <label>اسم المنتج:</label>
+                <input type="text" id="edit-product-name" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;">
+            </div>
+            <div class="form-group">
+                <label>السعر (دينار عراقي):</label>
+                <input type="number" id="edit-product-price" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;">
+            </div>
+            <div class="form-group">
+                <label>وصف المنتج:</label>
+                <textarea id="edit-product-desc" rows="3" required></textarea>
+            </div>
+            <div class="modal-actions">
+                <button id="btn-update-product" class="btn-primary">حفظ التعديلات</button>
+                <button id="btn-cancel-edit" class="btn-secondary">إلغاء</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- عارض الصور -->
+    <div id="modal-image-viewer" class="modal-overlay" style="z-index: 2000; background: rgba(0,0,0,0.8);">
+        <div style="position: relative; max-width: 90%; max-height: 90%; display: flex; justify-content: center; align-items: center; padding: 0;">
+            <button id="btn-close-image" style="position: absolute; top: -40px; right: 0; background: none; border: none; color: white; font-size: 40px; cursor: pointer; line-height: 1;">&times;</button>
+            <img id="viewer-image" src="" style="max-width: 100%; max-height: 80vh; object-fit: contain; border-radius: 8px; box-shadow: 0 5px 25px rgba(0,0,0,0.5);">
+        </div>
+    </div>
+
+    <script type="module" src="script.js?v=2.0"></script>
+</body>
+</html>
+
